@@ -5,9 +5,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // We'll let GitHub Pages handle the base path
-  basePath: '',
-  assetPrefix: '',
+  // Use assetPrefix and basePath for GitHub Pages
+  basePath: process.env.GITHUB_ACTIONS ? '/arthurpopa.com' : '',
+  assetPrefix: process.env.GITHUB_ACTIONS ? '/arthurpopa.com/' : '',
 }
 
 module.exports = nextConfig 
