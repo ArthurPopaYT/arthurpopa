@@ -1,3 +1,36 @@
+// Declaration file for Three.js and React Three Fiber
+// This helps TypeScript understand the types for components that aren't fully typed
+
+import { ReactThreeFiber } from '@react-three/fiber'
+import { Object3D } from 'three'
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      textGeometry: ReactThreeFiber.BufferGeometryNode<any, any>
+    }
+  }
+}
+
+declare module '@react-three/drei' {
+  export const Stars: React.FC<{
+    radius?: number
+    depth?: number
+    count?: number
+    factor?: number
+    saturation?: number
+    fade?: boolean
+  }>
+}
+
+// Allow array positions to work with Three.js Vector3
+declare module 'three' {
+  interface Vector3 {
+    set(x: number, y: number, z: number): this
+    set(x: number[], y?: number, z?: number): this
+  }
+}
+
 declare module 'three' {
   export class Vector2 {
     constructor(x?: number, y?: number);

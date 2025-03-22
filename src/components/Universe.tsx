@@ -1,114 +1,65 @@
 'use client'
 
-import { useRef, useState } from 'react'
-import { useFrame } from '@react-three/fiber'
-import { useGLTF, Text } from '@react-three/drei'
+import { useEffect, useState, useRef } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
-import { motion } from 'framer-motion-3d'
 
-const socialLinks = [
-  { name: 'YouTube', handle: '@arthurpopa', url: 'https://youtube.com/@arthurpopa', color: '#FF0000' },
-  { name: 'LinkedIn', handle: 'arthur-popa', url: 'https://www.linkedin.com/in/arthur-popa-591439331/', color: '#0077B5' },
-  { name: 'Instagram', handle: '@arthur_popa', url: 'https://instagram.com/arthur_popa', color: '#E4405F' },
-  { name: 'Portfolio', handle: 'punctual.video', url: 'https://punctual.video', color: '#00FF00' }
-]
-
+// Main Universe Component
 export default function Universe() {
-  const groupRef = useRef<THREE.Group>(null)
-  const [hoveredNode, setHoveredNode] = useState<number | null>(null)
-
-  useFrame((state) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y += 0.001
-    }
-  })
-
+  const [initialized, setInitialized] = useState(false)
+  
+  useEffect(() => {
+    setInitialized(true)
+    console.log('Universe component mounted on client side')
+  }, [])
+  
+  if (!initialized) {
+    return null
+  }
+  
   return (
-    <group ref={groupRef}>
-      {/* Central Avatar Node */}
-      <mesh position={[0, 0, 0]}>
-        <sphereGeometry args={[0.5, 32, 32]} />
-        <meshStandardMaterial
-          color="#4A90E2"
-          emissive="#4A90E2"
-          emissiveIntensity={0.5}
-          transparent
-          opacity={0.8}
+    <div style={{ width: '100%', height: '100vh' }}>
+      <Canvas camera={{ position: [0, 2, 10], fov: 75 }}>
+        <ambientLight intensity={0.5} />
+        <pointLight position={[10, 10, 10]} />
+        
+        {/* Central sphere */}
+        <mesh>
+          <sphereGeometry args={[1, 32, 32]} />
+          <meshStandardMaterial color="#00e5ff" />
+        </mesh>
+        
+        {/* Orbit planets */}
+        <mesh position={[3, 0, 0]}>
+          <sphereGeometry args={[0.5, 32, 32]} />
+          <meshStandardMaterial color="red" />
+        </mesh>
+        
+        <mesh position={[-3, 0, 0]}>
+          <sphereGeometry args={[0.5, 32, 32]} />
+          <meshStandardMaterial color="blue" />
+        </mesh>
+        
+        <mesh position={[0, 0, 3]}>
+          <sphereGeometry args={[0.5, 32, 32]} />
+          <meshStandardMaterial color="purple" />
+        </mesh>
+        
+        <mesh position={[0, 0, -3]}>
+          <sphereGeometry args={[0.5, 32, 32]} />
+          <meshStandardMaterial color="green" />
+        </mesh>
+        
+        <OrbitControls 
+          enablePan={false}
+          enableZoom={true}
+          minDistance={3}
+          maxDistance={15}
+          autoRotate
+          autoRotateSpeed={0.5}
         />
-      </mesh>
-
-      {/* Social Media Nodes */}
-      {socialLinks.map((link, index) => {
-        const angle = (index * Math.PI * 2) / socialLinks.length
-        const radius = 2
-        const x = Math.cos(angle) * radius
-        const y = Math.sin(angle) * radius
-
-        return (
-          <group key={link.name} position={[x, y, 0]}>
-            <motion.mesh
-              whileHover={{ scale: 1.2 }}
-              onPointerEnter={() => setHoveredNode(index)}
-              onPointerLeave={() => setHoveredNode(null)}
-              onClick={() => window.open(link.url, '_blank')}
-            >
-              <sphereGeometry args={[0.3, 32, 32]} />
-              <meshStandardMaterial
-                color={link.color}
-                emissive={link.color}
-                emissiveIntensity={hoveredNode === index ? 1 : 0.5}
-              />
-            </motion.mesh>
-            <Text
-              position={[0, 0.5, 0]}
-              fontSize={0.15}
-              color="white"
-              anchorX="center"
-              anchorY="middle"
-            >
-              {link.name}
-            </Text>
-            <Text
-              position={[0, -0.5, 0]}
-              fontSize={0.1}
-              color="white"
-              anchorX="center"
-              anchorY="middle"
-            >
-              {link.handle}
-            </Text>
-          </group>
-        )
-      })}
-
-      {/* Connecting Lines */}
-      {socialLinks.map((_, index) => {
-        const angle = (index * Math.PI * 2) / socialLinks.length
-        const radius = 2
-        const x = Math.cos(angle) * radius
-        const y = Math.sin(angle) * radius
-
-        return (
-          <line key={`line-${index}`}>
-            <bufferGeometry
-              attach="geometry"
-              attributes={{
-                position: new THREE.BufferAttribute(
-                  new Float32Array([0, 0, 0, x, y, 0]),
-                  3
-                ),
-              }}
-            />
-            <lineBasicMaterial
-              attach="material"
-              color="#4A90E2"
-              transparent
-              opacity={0.3}
-              linewidth={1}
-            />
-          </line>
-        )
-      })}
-    </group>
+      </Canvas>
+    </div>
   )
 } 

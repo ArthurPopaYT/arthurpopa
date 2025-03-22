@@ -1,47 +1,44 @@
-# Arthur Popa - Site personal
+# Arthur Popa's Personal Website
 
-Site personal interactiv cu efect de univers digital, noduri sociale și interfețe pentru platforme.
+This is the personal website for Arthur Popa, built with Next.js.
 
-## Tehnologii utilizate
+## Current Status
+
+The website is currently deployed in a simplified version without 3D features due to TypeScript compatibility issues with React Three Fiber and Three.js. The static version includes:
+
+- A clean, responsive design
+- Links to social media profiles
+- A loading animation
+
+## Planned Development
+
+Future updates will include:
+- Interactive 3D universe visualization using Three.js once TypeScript issues are resolved
+- Dynamic content loading for portfolio pieces
+- Improved animations and transitions
+
+## Running Locally
+
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Run the development server: `npm run dev`
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## Development Notes
+
+- The 3D visualization is currently disabled due to TypeScript errors in the integration between React Three Fiber and Next.js.
+- TypeScript declaration files have been added to support future 3D development.
+- The current deployment uses a static fallback version until 3D rendering issues are resolved.
+
+## Technologies Used
 
 - Next.js
-- React
 - TypeScript
-- Anime.js
-- CSS personalizat
+- React
+- Tailwind CSS
+- Three.js (planned for future updates)
+- React Three Fiber (planned for future updates)
 
-## Caracteristici
+## License
 
-- Univers digital interactiv cu noduri sociale
-- Efecte de holograme și glitch
-- Interfețe personalizate pentru YouTube, LinkedIn, Instagram, GitHub
-- Animații și efecte vizuale avansate
-- Design responsive
-
-## Instalare
-
-```bash
-# Clonează repository-ul
-git clone https://github.com/yourusername/arthurpopa.com.git
-
-# Intră în directorul proiectului
-cd arthurpopa.com
-
-# Instalează dependențele
-npm install
-
-# Rulează aplicația în modul dezvoltare
-npm run dev
-```
-
-## Deployment
-
-Pentru a face build și export static:
-
-```bash
-npm run build
-```
-
-## Licență
-
-Toate drepturile rezervate. Acest cod sursă este proprietatea lui Arthur Popa. 
+© Arthur Popa. All rights reserved. 
