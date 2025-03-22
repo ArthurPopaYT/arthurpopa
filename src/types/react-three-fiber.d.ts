@@ -49,6 +49,24 @@ declare module '@react-three/fiber' {
     setEvents: (events: any) => void;
   };
   export const useThree: useThree;
+
+  // Add JSX namespace to include Three.js elements
+  namespace JSX {
+    interface IntrinsicElements {
+      group: any;
+      mesh: any;
+      sphereGeometry: any;
+      meshStandardMaterial: any;
+      line: any;
+      bufferGeometry: any;
+      lineBasicMaterial: any;
+      pointLight: any;
+      ambientLight: any;
+      directionalLight: any;
+      perspectiveCamera: any;
+      // Add any other Three.js elements you're using
+    }
+  }
 }
 
 declare module '@react-three/drei' {
