@@ -27,6 +27,8 @@
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
     "@types/three": "^0.154.0",
+    "glslify-loader": "^2.0.0",
+    "raw-loader": "^4.0.2",
     "typescript": "5.1.6"
   }
 }

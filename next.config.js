@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false, // Disable strict mode for better Three.js compatibility
   // Disable TypeScript type checking during build
   typescript: {
     // !! WARN !!
@@ -15,7 +15,18 @@ const nextConfig = {
   // Explicitly configure for app directory
   experimental: {
     appDir: true
-  }
+  },
+  // Properly handle WebGL in production
+  webpack: (config) => {
+    // This is needed for three.js to work properly on the web
+    config.module.rules.push({
+      test: /\.(glsl|vs|fs|vert|frag)$/,
+      exclude: /node_modules/,
+      use: ['raw-loader', 'glslify-loader'],
+    });
+
+    return config;
+  },
 }
 
 module.exports = nextConfig 
