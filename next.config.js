@@ -1,13 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'export',
   images: {
-    unoptimized: true,
+    domains: ['arthurpopa.com'], // Add your domain for image optimization
   },
-  // Use assetPrefix and basePath for GitHub Pages
-  basePath: process.env.GITHUB_ACTIONS ? '/arthurpopa.com' : '',
-  assetPrefix: process.env.GITHUB_ACTIONS ? '/arthurpopa.com/' : '',
+  // No need for basePath and assetPrefix for Render
   // Explicitly configure for app directory
   experimental: {
     appDir: true
